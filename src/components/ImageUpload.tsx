@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { storage } from "../firebase/firebaseConfig";
+import { db, storage } from "../firebase/firebaseConfig";
 import { useAuth } from "../context/AuthContext";
+import { collection, addDoc } from "firebase/firestore";
 import { FaUpload } from "react-icons/fa";
 
 const ImageUpload = () => {
@@ -16,7 +17,7 @@ const ImageUpload = () => {
     }
   };
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     if (!file) return;
 
     const storageRef = ref(storage, `uploads/${user?.uid}/${file.name}`);
@@ -35,10 +36,19 @@ const ImageUpload = () => {
         setUploading(false);
       },
       async () => {
-        const url = await getDownloadURL(uploadTask.snapshot.ref);
+        const url = await getDownloadURL(uploadTask.snapshot.ref());
         setDownloadURL(url);
         setUploading(false);
-        console.log("File available at", url);
+
+        // Save image metadata to Firestore
+        if (user) {
+          await addDoc(collection(db, "images"), {
+            userId: user.uid,
+            imageUrl: url,
+            timestamp: new Date(),
+          });
+          console.log("File available at", url);
+        }
       }
     );
   };
