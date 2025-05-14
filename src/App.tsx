@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import Navbar from "./components/Navbar";
 import SignIn from "./components/SignIn";
-import Feed from "./components/Feed";
+import ImageUpload from "./components/ImageUpload";
 import "./index.css";
 
 function App() {
@@ -10,10 +10,12 @@ function App() {
     <AuthProvider>
       <Router>
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Feed />} />
-          <Route path="/signin" element={<SignIn />} />
-        </Routes>
+        <div className="container mx-auto p-4">
+          <Routes>
+            <Route path="/" element={<ImageUpload />} />
+            <Route path="/signin" element={<SignIn />} />
+          </Routes>
+        </div>
       </Router>
     </AuthProvider>
   );
