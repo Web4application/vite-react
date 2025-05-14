@@ -7,3 +7,4 @@ npm start
 npx create-react-app my-app --template typescript
 cd my-app
 npm start
+npm install react-router-dom
