@@ -3,6 +3,7 @@ import { AuthProvider } from "./context/AuthContext";
 import Navbar from "./components/Navbar";
 import SignIn from "./components/SignIn";
 import ImageUpload from "./components/ImageUpload";
+import Feed from "./components/Feed";
 import "./index.css";
 
 function App() {
@@ -12,7 +13,8 @@ function App() {
         <Navbar />
         <div className="container mx-auto p-4">
           <Routes>
-            <Route path="/" element={<ImageUpload />} />
+            <Route path="/" element={<Feed />} />
+            <Route path="/upload" element={<ImageUpload />} />
             <Route path="/signin" element={<SignIn />} />
           </Routes>
         </div>
