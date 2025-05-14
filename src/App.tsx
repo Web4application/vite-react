@@ -1,17 +1,20 @@
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import Navbar from "./components/Navbar";
+import SignIn from "./components/SignIn";
 import Feed from "./components/Feed";
 import "./index.css";
 
 function App() {
   return (
     <AuthProvider>
-      <div className="bg-gray-100 min-h-screen">
+      <Router>
         <Navbar />
-        <div className="flex justify-center mt-10">
-          <Feed />
-        </div>
-      </div>
+        <Routes>
+          <Route path="/" element={<Feed />} />
+          <Route path="/signin" element={<SignIn />} />
+        </Routes>
+      </Router>
     </AuthProvider>
   );
 }
